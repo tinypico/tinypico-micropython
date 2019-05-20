@@ -3,7 +3,7 @@ TinyPICO MicroPython Software
 
 In this repository you'll find our MicroPython based libraries and example projects for the TinyPICO and some accompanying shields 
 
-This repositry will be updated frequently during the TinyPICO campaign.
+This repository will be updated frequently during the TinyPICO campaign.
 
 Open Source License
 -------------------
