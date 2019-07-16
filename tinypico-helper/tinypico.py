@@ -101,7 +101,7 @@ def set_dotstar_power( state ):
         Pin( DOTSTAR_PWR, Pin.OUT, None )   # Break the PULL_HOLD on the pin
         Pin( DOTSTAR_PWR ).value( False )   # Set the pin to LOW to enable the Transistor
     else:
-        machine.Pin(13, machine.Pin.IN, machine.Pin.PULL_HOLD) # Set PULL_HOLD on the pin to allow the 3V3 pullup to work
+        Pin(13, Pin.IN, Pin.PULL_HOLD) # Set PULL_HOLD on the pin to allow the 3V3 pullup to work
                    
     Pin(DOTSTAR_CLK, Pin.OUT if state else Pin.IN )     # If power is on, set CLK to be output, otherwise input
     Pin(DOTSTAR_DATA, Pin.OUT if state else Pin.IN )    # If power is on, set DATA to be output, otherwise input
