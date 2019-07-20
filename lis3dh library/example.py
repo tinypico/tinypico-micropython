@@ -40,7 +40,7 @@ if imu.device_check():
         print("x = %0.3f G, y = %0.3f G, z = %0.3f G" % (x, y, z))
 
         # Convert acceleration to Pitch and Roll and print values
-        (p,r) = convert_accell_rotation( imu.acceleration )
+        p, r = convert_accell_rotation( imu.acceleration )
         print("pitch = %0.2f, roll = %0.2f" % (p,r))
 
         # Small delay to keep things responsive but give time for interrupt processing.
