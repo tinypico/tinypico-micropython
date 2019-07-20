@@ -44,6 +44,7 @@ LED = Pin( 4, Pin.OUT )
 TinyPICO.set_dotstar_power( False )
 
 # Configure I2C for controlling anything on the I2C bus
+# Software I2C only for this example but the next version of MicroPython for the ESP32 supports hardware I2C too
 i2c = I2C(scl=Pin(22), sda=Pin(21))
 
 # Example initialisers for the  OLED and IMU

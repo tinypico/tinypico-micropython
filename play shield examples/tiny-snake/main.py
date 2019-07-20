@@ -184,11 +184,11 @@ def play_boot_music():
 
 def play_death():
     speaker = PWM(Pin(25), freq=20000, duty=512)
-    speaker.freq(D4)
+    speaker.freq(notes.D4)
     time.sleep_ms(200)
     speaker.freq(0)
     time.sleep_ms(25)
-    speaker.freq(A2)
+    speaker.freq(notes.A2)
     time.sleep_ms(400)
     speaker.freq(0)
     speaker.deinit()
@@ -291,6 +291,7 @@ def flash_text(x,y,text):
 TinyPICO.set_dotstar_power( False )
 
 # Configure I2C for controlling anything on the I2C bus
+# Software I2C only for this example but the next version of MicroPython for the ESP32 supports hardware I2C too
 i2c = I2C(scl=Pin(22), sda=Pin(21))
 
 # Initialise the OLED screen
@@ -334,7 +335,7 @@ def draw_snake():
     # If x or y are > 0 then we reove that pos from the screen
     if result[2] > 0 or result[3] > 0:
         oled.fill_rect(result[2]-1, result[3]-1, 3, 3, 0)
-        play_sound(C4,100)
+        play_sound(notes.C4,100)
 
     # Go through the snake positions and draw them
     for pos in snake.get_positions():
