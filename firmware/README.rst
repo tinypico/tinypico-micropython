@@ -3,7 +3,7 @@ TinyPICO MicroPython Firmware
 
 In this folder you'll fine the lest MicroPython firmware I am shipping on production boards.
 
-Eventually you'll be able to download the latest MicroPython TinyPICO specific firmware from http://micropython.org/download, but until per board firmware uis available you can use this instead.
+Eventually you'll be able to download the latest MicroPython TinyPICO specific firmware from http://micropython.org/download, but until per board firmware is available you can use this instead.
 
 All TinyPICO firmware here includes both the TinyPICO Helper and Dotstar libraries frozen into the firmware.
 

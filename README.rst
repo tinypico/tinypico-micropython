@@ -1,7 +1,7 @@
 TinyPICO MicroPython Software
 =============================
 
-In this repository you'll find our MicroPython based libraries and example projects for the TinyPICO and some accompanying shields 
+In this repository you'll find our MicroPython based libraries and example projects for the TinyPICO and some accompanying shields
 
 This repository will be updated frequently during the TinyPICO campaign.
 
@@ -12,7 +12,7 @@ These files are released as open source under the MIT license. Please review the
 
 TinyPICO Branding
 -----------------
-The name TinyPICO, logos and TinyPICO brand is owned by Unexpected Maker. If you would like to use the name in a project you are making that supports the TinyPICO hardware, please conact us and we'll be happy to talk to you about it.
+The name TinyPICO, logos and TinyPICO brand is owned by Unexpected Maker. If you would like to use the name in a project you are making that supports the TinyPICO hardware, please contact us and we'll be happy to talk to you about it.
 
 Support Unexpected Maker
 ------------------------

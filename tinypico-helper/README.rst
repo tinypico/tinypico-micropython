@@ -3,7 +3,7 @@ TinyPICO MicroPython Helper
 
 This library adds some helper functions and useful pin assignments to make coding with TinyPICO & MicroPython easier
 
-TinyPICO Hardare Pin Assingments
+TinyPICO Hardware Pin Assignments
 ---------------
 .. code-block:: python
 
@@ -43,11 +43,11 @@ Helper functions
     # to eliminate false negatives due to the charge IC not knowing the difference between no battery
     # and a full battery not charging - This is why the charge LED flashes
     def get_battery_charging()
-        
-    # Return the internal PICO-D4 temperature in Farenheit
+
+    # Return the internal PICO-D4 temperature in Fahrenheit
     def get_internal_temp_F()
 
-    # Return the internal PICO-D4 temperature in Celcius
+    # Return the internal PICO-D4 temperature in Celsius
     def get_internal_temp_C()
 
     # Power to the on-board Dotstar is controlled by a PNP transistor, so low is ON and high is OFF
@@ -55,7 +55,7 @@ Helper functions
     # This might be improved at a future date
     # The reason we have power control for the Dotstar is that it has a quiescent current of around 1mA, so we
     # need to be able to cut power to it to minimise power consumption during deep sleep or with general battery powered use
-    # to minimse un-needed battery drain
+    # to minimise unneeded battery drain
     def set_dotstar_power( state )
 
     # Dotstar rainbow colour wheel
@@ -77,7 +77,7 @@ Example Usage
 
     # Configure SPI for controlling the DotStar
     # Internally we are using software SPI for this as the pins being used are not hardware SPI pins
-    spi = SPI(sck=Pin( TinyPICO.DOTSTAR_CLK ), mosi=Pin( TinyPICO.DOTSTAR_DATA ), miso=Pin( TinyPICO.SPI_MISO) ) 
+    spi = SPI(sck=Pin( TinyPICO.DOTSTAR_CLK ), mosi=Pin( TinyPICO.DOTSTAR_DATA ), miso=Pin( TinyPICO.SPI_MISO) )
     # Create a DotStar instance
     dotstar = DotStar(spi, 1, brightness = 0.5 ) # Just one DotStar, half brightness
     # Turn on the power to the DotStar
@@ -87,7 +87,7 @@ Example Usage
     print("\nHello from TinyPICO!")
     print("--------------------\n")
 
-    # Show some info on boot 
+    # Show some info on boot
     print("Battery Voltage is {}V".format( TinyPICO.get_battery_voltage() ) )
     print("Battery Charge State is {}\n".format( TinyPICO.get_battery_charging() ) )
 
@@ -109,7 +109,7 @@ Example Usage
         if update_temp_time < time.time():
             update_temp_time = time.time() + update_interval
 
-            # Grab the temperates and print them
+            # Grab the temperatures and print them
             print("\nInternal PICO-D4 Temp: {}°F {:.2f}°C".format( TinyPICO.get_internal_temp_F(), TinyPICO.get_internal_temp_C() ) )
 
 

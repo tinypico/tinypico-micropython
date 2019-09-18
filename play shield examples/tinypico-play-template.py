@@ -16,12 +16,12 @@
 __version__ = "0.0.0-auto.0"
 __repo__ = "https://github.com/TinyPICO/tinypico-micropython"
 
-# Import required libraries 
+# Import required libraries
 import tinypico as TinyPICO
 from micropython import const
 from machine import I2C, Pin
 
-# Hardare Pin Assingments
+# Hardware Pin Assignments
 
 # Buttons
 BUT_1 = Pin( 26, Pin.IN )
@@ -38,7 +38,7 @@ SPEAKER = Pin( 25, Pin.OUT )
 # Blue LED
 LED = Pin( 4, Pin.OUT )
 
-# Setup 
+# Setup
 
 # Turn off the power to the DotStar
 TinyPICO.set_dotstar_power( False )

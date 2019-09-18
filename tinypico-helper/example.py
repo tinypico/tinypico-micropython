@@ -8,7 +8,7 @@ import time, random, micropython
 
 # Configure SPI for controlling the DotStar
 # Internally we are using software SPI for this as the pins being used are not hardware SPI pins
-spi = SPI(sck=Pin( TinyPICO.DOTSTAR_CLK ), mosi=Pin( TinyPICO.DOTSTAR_DATA ), miso=Pin( TinyPICO.SPI_MISO) ) 
+spi = SPI(sck=Pin( TinyPICO.DOTSTAR_CLK ), mosi=Pin( TinyPICO.DOTSTAR_DATA ), miso=Pin( TinyPICO.SPI_MISO) )
 # Create a DotStar instance
 dotstar = DotStar(spi, 1, brightness = 0.5 ) # Just one DotStar, half brightness
 # Turn on the power to the DotStar
@@ -18,7 +18,7 @@ TinyPICO.set_dotstar_power( True )
 print("\nHello from TinyPICO!")
 print("--------------------\n")
 
-# Show some info on boot 
+# Show some info on boot
 print("Battery Voltage is {}V".format( TinyPICO.get_battery_voltage() ) )
 print("Battery Charge State is {}\n".format( TinyPICO.get_battery_charging() ) )
 
@@ -40,7 +40,7 @@ def print_temp():
     if update_temp_time < time.time():
         update_temp_time = time.time() + update_interval
 
-        # Grab the temperates and print them
+        # Grab the temperatures and print them
         print("\nInternal PICO-D4 Temp: {}°F {:.2f}°C".format( TinyPICO.get_internal_temp_F(), TinyPICO.get_internal_temp_C() ) )
 
 
