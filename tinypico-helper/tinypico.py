@@ -17,12 +17,12 @@
 __version__ = "0.0.0-auto.0"
 __repo__ = "https://github.com/TinyPICO/tinypico-micropython"
 
-# Import required libraries 
+# Import required libraries
 from micropython import const
 from machine import Pin, SPI, ADC
 import machine, time, esp32
 
-# TinyPICO Hardare Pin Assingments
+# TinyPICO Hardware Pin Assignments
 
 # Battery
 BAT_VOLTAGE = const(35)
@@ -54,7 +54,7 @@ DAC2 = const(26)
 def get_battery_voltage():
     """
     Returns the current battery voltage. If no battery is connected, returns 3.7V
-    This is an approximation only, but useful to detect of the chnare state of the battery is getting low.
+    This is an approximation only, but useful to detect of the charge state of the battery is getting low.
     """
     adc = ADC( Pin( BAT_VOLTAGE ) )         # Assign the ADC pin to read
     measuredvbat = adc.read()               # Read the value
@@ -72,37 +72,37 @@ def get_battery_charging():
     """
     measuredVal = 0                         # start our reading at 0
     io = Pin( BAT_CHARGE, Pin.IN )          # Assign the pin to read
-  
-    for y in range(0, 10):                  # loop through 10 times adding the read values together to ensure no false positives    
+
+    for y in range(0, 10):                  # loop through 10 times adding the read values together to ensure no false positives
         measuredVal += io.value()
 
     return ( measuredVal == 0 )             # return True if the value is 0
 
-# Return the internal PICO-D4 temperature in Farenheit
+# Return the internal PICO-D4 temperature in Fahrenheit
 def get_internal_temp_F():
-    """Return the internal PICO-D4 temperature in farenheit."""
+    """Return the internal PICO-D4 temperature in Fahrenheit."""
     return esp32.raw_temperature()
 
-# Return the internal PICO-D4 temperature in Celcius
+# Return the internal PICO-D4 temperature in Celsius
 def get_internal_temp_C():
-    """Return the internal PICO-D4 temperature in celcius."""
+    """Return the internal PICO-D4 temperature in Celsius."""
     return ( esp32.raw_temperature() - 32 ) / 1.8
 
-# Power to the on-oard Dotstar is controlled by a PNP transistor, so low is ON and high is OFF
+# Power to the on-board Dotstar is controlled by a PNP transistor, so low is ON and high is OFF
 # We also need to set the Dotstar clock and data pins to be inputs to prevent power leakage when power is off
 # This might be improved at a future date
 # The reason we have power control for the Dotstar is that it has a quiescent current of around 1mA, so we
 # need to be able to cut power to it to minimise power consumption during deep sleep or with general battery powered use
-# to minimse un-needed battery drain
+# to minimise unneeded battery drain
 def set_dotstar_power( state ):
     """Set the power for the on-board Dostar to allow no current draw when not needed."""
-    # Set the power pin to the inverse of state 
+    # Set the power pin to the inverse of state
     if state:
         Pin( DOTSTAR_PWR, Pin.OUT, None )   # Break the PULL_HOLD on the pin
         Pin( DOTSTAR_PWR ).value( False )   # Set the pin to LOW to enable the Transistor
     else:
-        Pin(13, Pin.IN, Pin.PULL_HOLD) # Set PULL_HOLD on the pin to allow the 3V3 pullup to work
-                   
+        Pin(13, Pin.IN, Pin.PULL_HOLD) # Set PULL_HOLD on the pin to allow the 3V3 pull-up to work
+
     Pin(DOTSTAR_CLK, Pin.OUT if state else Pin.IN )     # If power is on, set CLK to be output, otherwise input
     Pin(DOTSTAR_DATA, Pin.OUT if state else Pin.IN )    # If power is on, set DATA to be output, otherwise input
 
@@ -113,9 +113,9 @@ def set_dotstar_power( state ):
 def dotstar_color_wheel( wheel_pos ):
     """Color wheel to allow for cycling through the rainbow of RGB colors."""
     wheel_pos = wheel_pos % 255
-    
+
     if wheel_pos < 85:
-        return (255 - wheel_pos * 3, 0, wheel_pos * 3)   
+        return (255 - wheel_pos * 3, 0, wheel_pos * 3)
     elif wheel_pos < 170:
         wheel_pos -= 85
         return (0, wheel_pos * 3, 255 - wheel_pos * 3)
