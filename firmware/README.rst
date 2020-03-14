@@ -1,11 +1,15 @@
 TinyPICO MicroPython Firmware
 =============================
 
-In this folder you'll fine the lest MicroPython firmware I am shipping on production boards.
+In this folder you'll find 2 versions of the TinyPICO MicroPython firmware:
 
-Eventually you'll be able to download the latest MicroPython TinyPICO specific firmware from http://micropython.org/download, but until per board firmware is available you can use this instead.
+micropython-tinypico-1.11.bin - Is built with IDF3 and is the firmware I ship on TinyPICO production boards.
+micropython-tinypico-1.12.bin - Is built with IDF4.1 and is the bleeding edge version as of March 15th, 2020.
 
 All TinyPICO firmware here includes both the TinyPICO Helper and Dotstar libraries frozen into the firmware.
+
+You are able to download MicroPython TinyPICO specific firmware from http://micropython.org/download, but there is currently a build issue preventing the TinyPICO Helper and Dotstar libraries from being included as frozen modules :(
+
 
 Support Unexpected Maker
 ------------------------
