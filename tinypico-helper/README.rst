@@ -44,12 +44,14 @@ Helper functions
     # and a full battery not charging - This is why the charge LED flashes
     def get_battery_charging()
 
-    # Return the internal PICO-D4 temperature in Fahrenheit
-    def get_internal_temp_F()
-
-    # Return the internal PICO-D4 temperature in Celsius
-    def get_internal_temp_C()
-
+	# Internal temperature functionality has been depreciated by Espressif
+	#
+    # #Return the internal PICO-D4 temperature in Fahrenheit
+    # #def get_internal_temp_F()
+    # #Return the internal PICO-D4 temperature in Celsius
+    # #def get_internal_temp_C()
+	#
+	
     # Power to the on-board Dotstar is controlled by a PNP transistor, so low is ON and high is OFF
     # We also need to set the Dotstar clock and data pins to be inputs to prevent power leakage when power is off
     # This might be improved at a future date
@@ -96,23 +98,6 @@ Example Usage
     print("------------------------------------")
     micropython.mem_info()
 
-    # Read the data every 15 seconds
-    update_interval = 5
-    # Make sure it fires immediately by starting it in the past
-    update_temp_time = time.time() - 10
-
-    def print_temp():
-        global update_interval
-        global update_temp_time
-
-        # We only run the contents of this function every 5 seconds
-        if update_temp_time < time.time():
-            update_temp_time = time.time() + update_interval
-
-            # Grab the temperatures and print them
-            print("\nInternal PICO-D4 Temp: {}°F {:.2f}°C".format( TinyPICO.get_internal_temp_F(), TinyPICO.get_internal_temp_C() ) )
-
-
     # Create a colour wheel index int
     color_index = 0
 
@@ -126,7 +111,4 @@ Example Usage
         color_index += 1
         # Sleep for 20ms so the colour cycle isn't too fast
         time.sleep_ms(20)
-
-        # Print the internal PICO-D4 temperature in F and C
-        print_temp()
 ..

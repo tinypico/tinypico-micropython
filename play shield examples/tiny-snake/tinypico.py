@@ -6,16 +6,7 @@
 #
 # 2019-Mar-12 - v0.1 - Initial implementation
 # 2019-May-20 - v1.0 - Initial Release
-
-"""
-`tinypico` - MicroPython TinyPICO Helper Library
-====================================================
-
-* Author(s): Seon Rozenblum, Matt Trentini
-"""
-
-__version__ = "0.0.0-auto.0"
-__repo__ = "https://github.com/TinyPICO/tinypico-micropython"
+# 2019-Oct-23 - v1.1 - Removed temp sensor code, prep for frozen modules
 
 # Import required libraries
 from micropython import const
@@ -38,11 +29,11 @@ SPI_MOSI = const(23)
 SPI_CLK = const(18)
 SPI_MISO = const(19)
 
-#I2C
+# I2C
 I2C_SDA = const(21)
 I2C_SCL = const(22)
 
-#DAC
+# DAC
 DAC1 = const(25)
 DAC2 = const(26)
 
@@ -56,11 +47,12 @@ def get_battery_voltage():
     Returns the current battery voltage. If no battery is connected, returns 3.7V
     This is an approximation only, but useful to detect of the charge state of the battery is getting low.
     """
-    adc = ADC( Pin( BAT_VOLTAGE ) )         # Assign the ADC pin to read
-    measuredvbat = adc.read()               # Read the value
-    measuredvbat /= 4095                    # divide by 4095 as we are using the default ADC voltage range of 0-1V
-    measuredvbat *= 3.7                     # Multiply by 3.7V, our reference voltage
+    adc = ADC(Pin(BAT_VOLTAGE))  # Assign the ADC pin to read
+    measuredvbat = adc.read()  # Read the value
+    measuredvbat /= 4095  # divide by 4095 as we are using the default ADC voltage range of 0-1V
+    measuredvbat *= 3.7  # Multiply by 3.7V, our reference voltage
     return measuredvbat
+
 
 # Return the current charge state of the battery - we need to read the value multiple times
 # to eliminate false negatives due to the charge IC not knowing the difference between no battery
@@ -70,23 +62,16 @@ def get_battery_charging():
     Returns the current battery charging state.
     This can trigger false positives as the charge IC can't tell the difference between a full battery or no battery connected.
     """
-    measuredVal = 0                         # start our reading at 0
-    io = Pin( BAT_CHARGE, Pin.IN )          # Assign the pin to read
+    measuredVal = 0  # start our reading at 0
+    io = Pin(BAT_CHARGE, Pin.IN)  # Assign the pin to read
 
-    for y in range(0, 10):                  # loop through 10 times adding the read values together to ensure no false positives
+    for y in range(
+        0, 10
+    ):  # loop through 10 times adding the read values together to ensure no false positives
         measuredVal += io.value()
 
-    return ( measuredVal == 0 )             # return True if the value is 0
+    return measuredVal == 0  # return True if the value is 0
 
-# Return the internal PICO-D4 temperature in Fahrenheit
-def get_internal_temp_F():
-    """Return the internal PICO-D4 temperature in Fahrenheit."""
-    return esp32.raw_temperature()
-
-# Return the internal PICO-D4 temperature in Celsius
-def get_internal_temp_C():
-    """Return the internal PICO-D4 temperature in Celsius."""
-    return ( esp32.raw_temperature() - 32 ) / 1.8
 
 # Power to the on-board Dotstar is controlled by a PNP transistor, so low is ON and high is OFF
 # We also need to set the Dotstar clock and data pins to be inputs to prevent power leakage when power is off
@@ -94,42 +79,44 @@ def get_internal_temp_C():
 # The reason we have power control for the Dotstar is that it has a quiescent current of around 1mA, so we
 # need to be able to cut power to it to minimise power consumption during deep sleep or with general battery powered use
 # to minimise unneeded battery drain
-def set_dotstar_power( state ):
+def set_dotstar_power(state):
     """Set the power for the on-board Dostar to allow no current draw when not needed."""
     # Set the power pin to the inverse of state
     if state:
-        Pin( DOTSTAR_PWR, Pin.OUT, None )   # Break the PULL_HOLD on the pin
-        Pin( DOTSTAR_PWR ).value( False )   # Set the pin to LOW to enable the Transistor
+        Pin(DOTSTAR_PWR, Pin.OUT, None)  # Break the PULL_HOLD on the pin
+        Pin(DOTSTAR_PWR).value(False)  # Set the pin to LOW to enable the Transistor
     else:
-        Pin(13, Pin.IN, Pin.PULL_HOLD) # Set PULL_HOLD on the pin to allow the 3V3 pull-up to work
+        Pin(13, Pin.IN, Pin.PULL_HOLD)  # Set PULL_HOLD on the pin to allow the 3V3 pull-up to work
 
-    Pin(DOTSTAR_CLK, Pin.OUT if state else Pin.IN )     # If power is on, set CLK to be output, otherwise input
-    Pin(DOTSTAR_DATA, Pin.OUT if state else Pin.IN )    # If power is on, set DATA to be output, otherwise input
+    Pin(
+        DOTSTAR_CLK, Pin.OUT if state else Pin.IN
+    )  # If power is on, set CLK to be output, otherwise input
+    Pin(
+        DOTSTAR_DATA, Pin.OUT if state else Pin.IN
+    )  # If power is on, set DATA to be output, otherwise input
 
     # A small delay to let the IO change state
-    time.sleep(.035)
+    time.sleep(0.035)
+
 
 # Dotstar rainbow colour wheel
-def dotstar_color_wheel( wheel_pos ):
+def dotstar_color_wheel(wheel_pos):
     """Color wheel to allow for cycling through the rainbow of RGB colors."""
     wheel_pos = wheel_pos % 255
 
     if wheel_pos < 85:
-        return (255 - wheel_pos * 3, 0, wheel_pos * 3)
+        return 255 - wheel_pos * 3, 0, wheel_pos * 3
     elif wheel_pos < 170:
         wheel_pos -= 85
-        return (0, wheel_pos * 3, 255 - wheel_pos * 3)
+        return 0, wheel_pos * 3, 255 - wheel_pos * 3
     else:
         wheel_pos -= 170
-        return ( wheel_pos * 3, 255 - wheel_pos * 3, 0)
+        return wheel_pos * 3, 255 - wheel_pos * 3, 0
+
 
 # Go into deep sleep but shut down the APA first to save power
 # Use this if you want lowest deep  sleep current
-def go_deepsleep( t ):
+def go_deepsleep(t):
     """Deep sleep helper that also powers down the on-board Dotstar."""
-    set_dotstar_power( False )
-    machine.deepsleep( t )
-
-
-
-
+    set_dotstar_power(False)
+    machine.deepsleep(t)
