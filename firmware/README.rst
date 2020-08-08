@@ -9,8 +9,7 @@ micropython-tinypico-1.12.bin - Is built with IDF4.1 and is the bleeding edge ve
 
 All TinyPICO firmware here includes both the TinyPICO Helper and Dotstar libraries frozen into the firmware.
 
-You are able to download MicroPython TinyPICO specific firmware from http://micropython.org/download, but there is currently a build issue preventing the TinyPICO Helper and Dotstar libraries from being included as frozen modules :(
-
+You are also able to download MicroPython TinyPICO specific firmware from http://micropython.org/download
 
 Support Unexpected Maker
 ------------------------
