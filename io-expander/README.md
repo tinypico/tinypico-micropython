@@ -1,6 +1,6 @@
 # TinyPICO IO Expander Shield
 
-MicroPython library for the [TinyPICO IO Expander Shield](https://www.tinypico.com/add-ons).
+MicroPython library for the [TinyPICO IO Expander Shield](https://unexpectedmaker.com/shop/tinypico-ioexpander).
 
 The shield combines several components:
 
