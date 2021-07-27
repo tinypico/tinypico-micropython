@@ -1,6 +1,6 @@
 from machine import SoftSPI, Pin
 import tinypico as TinyPICO
-from micropython_dotstar import DotStar
+from dotstar import DotStar
 import time, random
 
 # Configure SPI for controlling the DotStar
