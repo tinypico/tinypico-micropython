@@ -24,7 +24,7 @@
 # THE SOFTWARE.
 
 """
-`micropython_dotstar` - DotStar strip driver
+`dotstar` - DotStar strip driver
 ====================================================
 
 * Author(s): Damien P. George, Limor Fried, Scott Shawcroft, Matt Trentini
