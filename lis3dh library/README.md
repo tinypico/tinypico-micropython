@@ -9,7 +9,7 @@ Proper interrupt support
 ## Example usage
 
 ```python
-import lis3dh
+import lis3dh, time
 from machine import Pin, I2C
 
 i2c = I2C(sda=Pin(21), scl=Pin(22)) # Correct I2C pins for TinyPICO
@@ -28,4 +28,4 @@ if imu.device_check():
         print("x = %0.3f G, y = %0.3f G, z = %0.3f G" % (x, y, z))
         # Small delay to keep things responsive but give time for interrupt processing.
         time.sleep(0.1)
-        ```
+```
